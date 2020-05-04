@@ -1,0 +1,40 @@
+        // this.addItem = this.addItem.bind(this);
+        // this.editItem = this.editItem.bind(this);
+        // this.deleteItem = this.deleteItem.bind(this);
+    
+
+    // addItem(item){
+    //     item = {...item, id : uuidv4()};
+    //     this.setState({
+    //         ing : [...this.state.ing, item]
+    //     })
+    // }
+
+    // editItem(item){
+    //     const updated = [this.state.ing]
+    //     this.setState({
+    //         ing : updated
+    //     })
+    // }
+
+    // deleteItem(item){
+    //     const updated = [this.state.ing]
+    //     this.setState({
+    //         ing : updated
+    //     })
+    // } 
+
+
+
+
+
+
+     
+
+
+
+
+
+
+
+
