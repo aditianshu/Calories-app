@@ -8,7 +8,6 @@ import MiniIg from './MiniIg'
 function App() {
   return (
     <div className="App">
-      {/* <Landing/> */}
       <Landing/>
     </div>
   );

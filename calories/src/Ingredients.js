@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import styles from './styles.css'
+import './styles.css'
 import MiniIg from './MiniIg'
-import uuidv4 from 'uuid'
+import {v4 as uuidv4} from 'uuid'
+import AddIng from './AddIng'
 
 
 class Ingredients extends Component{
@@ -9,72 +10,65 @@ class Ingredients extends Component{
         super(props);
         this.state = {
             ing : this.props.response,
-            calories : this.props.calories
         };
         this.addItem = this.addItem.bind(this);
-        this.editItem = this.editItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
+        this.clearRecepie = this.clearRecepie.bind(this);
     }
-
-    getData(item){
-        var response = {id : "hi"};
-        const ing = item;
-        console.log("insidee")
-        axios({
-            url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
-            method : 'POST',
-            data:  `{ "query": "${ing}" }`,
-            headers : {
-                'accept': 'application/json',
-                'x-app-id': '12d1475f',
-                'x-app-key': 'aad28b9d40d73adc91885516582dd481',
-                'x-remote-user-id': '0',
-                'Content-Type': 'application/json'
-            }
-
-      }).then(function (res) {
-            this.setState({calories : [...this.state.calories, {res}]});
-      });
-
-    }
-    
 
     addItem(item){
-        item = {...item, id : uuidv4()};
+        console.log(item);
+        item = {i : item.ingridient, id : uuidv4()};
         this.setState({
-            ing : [...this.state.ing, item],
-            calories : [...this.state.calories, this.getData(item.i)]
+            ing : [...this.state.ing, item]
         })
-        addHandle(this.state);
+        this.props.addHandle(item);
     }
 
-    // editItem(item){
-    //     const updated = [this.state.ing]
-    //     this.setState({
-    //         ing : updated
-    //     })
-    // }
-
     deleteItem(item){
-        const updated = [this.state.ing]
-        this.setState({
-            ing : updated
+        this.setState ({
+            ing : this.state.ing.filter(ingridient => (ingridient.id !== item))
         })
+        this.props.handleDelete(item)
     } 
 
 
+    clearRecepie(){
+        this.setState({
+            ing : []
+        })
+        this.props.handleClear()
+    }
+
     render(){
         console.log(this.props);
-        var a =0;
         return (
-            <div>
-               { this.state.ing.map(i => (
-                   <MiniIg ing = {i}/>
-               )) }
-                <form>
-                    <button>Submit</button>
-                </form>
-            </div>
+                <div className  = 'divOuter'>
+                    <div>
+                        <h2>Add Ingredients</h2>
+                        <p className = "instructions">Add Ingredients in the following ways : 
+                            "4 cups of milk", etc. 
+                            Add all the nutrients preferrably in the following order <br></br>
+                            item count-measure(if relevant)-ingredient
+                        </p>
+                        <div className = "inList"> 
+                            { this.state.ing.map(i => (
+                            <MiniIg ing = {i}  handleDeleteClick = {this.deleteItem}/>
+                            )) }
+                            <AddIng onAdd = {this.addItem}/>
+                        </div>
+                        <div className = 'buttonsIn'>
+                        <button 
+                            onClick = {this.props.submitHandle}
+                            className = 'btn btnFade'>Submit Recipie
+                        </button>
+                        <button 
+                            onClick = {this.clearRecepie}
+                            className = 'btn btnFade'>Clear Recepie
+                        </button>
+                        </div>
+                    </div>
+                </div>
         ); 
                 
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './styles.css'
+import './styles.css'
 
 
 class MiniIg extends Component{
@@ -8,29 +8,27 @@ class MiniIg extends Component{
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.state = {
-            val : this.props.ing.req,
+            val : this.props.ing.i,
             isEdit : false
         }
     }
-
-    handleEdit(){
-
-    }   
     
-    handleDelete(){
-        
+    handleDelete(e){
+        e.preventDefault();
+        console.log("here");
+        this.props.handleDeleteClick(this.props.ing.id);
     }
 
     render(){
-        console.log(this.props);
-        
-        const daily = {};
         return (
             <div>
-                <div>
-                    <p>{this.props.ing.req}</p>
-                    <button>edit</button>
-                    <button>delete</button>
+                <div className = 'listItems'>
+                    <p className = 'ingName'>{this.props.ing.i}</p>
+                    <button 
+                    className = 'btn btnFade'
+                    onClick = {this.handleDelete}>
+                        Delete
+                    </button>
                 </div>
             </div>
         )
