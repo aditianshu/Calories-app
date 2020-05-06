@@ -5,7 +5,6 @@ import './styles.css'
 class MiniIg extends Component{
     constructor(props){
         super(props);
-        this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.state = {
             val : this.props.ing.i,
